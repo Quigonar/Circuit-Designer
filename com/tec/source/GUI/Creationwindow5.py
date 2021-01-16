@@ -9,21 +9,24 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import source_rc
 
 
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1160, 830)
-        Form.setStyleSheet("background-color: rgb(65, 113, 121);")
+        Form.setStyleSheet("")
         self.contenedor = QtWidgets.QGraphicsView(Form)
-        self.contenedor.setGeometry(QtCore.QRect(20, 190, 1121, 621))
+        self.contenedor.setGeometry(QtCore.QRect(20, 190, 821, 621))
         self.contenedor.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.CrossCursor))
-        self.contenedor.setStyleSheet("background-color: rgb(104, 146, 147);\n"
-"border-color: rgb(206, 156, 30);")
+        self.contenedor.setStyleSheet("background-color: rgb(255,255,255);\n"
+"border-color: rgb(85, 85, 85);\n"
+"border-width: 2px;\n"
+"")
         self.contenedor.setObjectName("contenedor")
         self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(20, 30, 441, 111))
+        self.label.setGeometry(QtCore.QRect(530, 20, 421, 111))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(165, 132, 48))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -72,7 +75,7 @@ class Ui_Form(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.label.setPalette(palette)
         font = QtGui.QFont()
-        font.setFamily("Pixelfy")
+        font.setFamily("Agency FB")
         font.setPointSize(30)
         font.setUnderline(False)
         font.setStrikeOut(False)
@@ -81,9 +84,98 @@ class Ui_Form(object):
         self.label.setStyleSheet("")
         self.label.setObjectName("label")
         self.backbutton = QtWidgets.QPushButton(Form)
-        self.backbutton.setGeometry(QtCore.QRect(1060, 10, 75, 23))
-        self.backbutton.setStyleSheet("background-color: rgb(168, 160, 49);")
+        self.backbutton.setGeometry(QtCore.QRect(1090, 20, 51, 41))
+        font = QtGui.QFont()
+        font.setFamily("PT Bold Broken")
+        font.setPointSize(31)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        font.setStyleStrategy(QtGui.QFont.PreferDefault)
+        self.backbutton.setFont(font)
+        self.backbutton.setCursor(QtGui.QCursor(QtCore.Qt.ArrowCursor))
+        self.backbutton.setStyleSheet("image: url(:/bback/back.png);\n"
+"border-width: 2px;\n"
+"    border-radius: 10px;")
+        self.backbutton.setText("")
+        self.backbutton.setAutoDefault(False)
         self.backbutton.setObjectName("backbutton")
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setGeometry(QtCore.QRect(950, 150, 111, 20))
+        font = QtGui.QFont()
+        font.setFamily("OCR A Extended")
+        font.setPointSize(14)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.resistenciaButton = QtWidgets.QPushButton(Form)
+        self.resistenciaButton.setGeometry(QtCore.QRect(870, 210, 51, 51))
+        self.resistenciaButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"image: url(:/bback/addresistor.png);\n"
+"border-width: 2px;\n"
+"    border-radius: 10px;")
+        self.resistenciaButton.setText("")
+        self.resistenciaButton.setObjectName("resistenciaButton")
+        self.poderButton = QtWidgets.QPushButton(Form)
+        self.poderButton.setGeometry(QtCore.QRect(870, 280, 51, 51))
+        self.poderButton.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"image: url(:/bback/addpower.png);\n"
+"border-width: 2px;\n"
+"    border-radius: 10px;")
+        self.poderButton.setText("")
+        self.poderButton.setObjectName("poderButton")
+        self.label_3 = QtWidgets.QLabel(Form)
+        self.label_3.setGeometry(QtCore.QRect(930, 230, 191, 21))
+        font = QtGui.QFont()
+        font.setFamily("OCR A Extended")
+        font.setPointSize(13)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName("label_3")
+        self.label_4 = QtWidgets.QLabel(Form)
+        self.label_4.setGeometry(QtCore.QRect(930, 300, 221, 21))
+        font = QtGui.QFont()
+        font.setFamily("OCR A Extended")
+        font.setPointSize(13)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.labeltools = QtWidgets.QLabel(Form)
+        self.labeltools.setGeometry(QtCore.QRect(850, 130, 281, 361))
+        self.labeltools.setStyleSheet("background-color: rgb(146, 159, 165);\n"
+"border-radius: 10px;")
+        self.labeltools.setText("")
+        self.labeltools.setIndent(-1)
+        self.labeltools.setObjectName("labeltools")
+        self.label_5 = QtWidgets.QLabel(Form)
+        self.label_5.setGeometry(QtCore.QRect(850, 130, 281, 61))
+        self.label_5.setStyleSheet("background-color: rgb(75, 87, 98);\n"
+"border-radius: 10px;")
+        self.label_5.setText("")
+        self.label_5.setObjectName("label_5")
+        self.label_6 = QtWidgets.QLabel(Form)
+        self.label_6.setGeometry(QtCore.QRect(0, 0, 1161, 831))
+        self.label_6.setStyleSheet("image: url(:/bback/decoration.png);")
+        self.label_6.setText("")
+        self.label_6.setObjectName("label_6")
+        self.simularButton = QtWidgets.QPushButton(Form)
+        self.simularButton.setGeometry(QtCore.QRect(970, 680, 151, 91))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.simularButton.setFont(font)
+        self.simularButton.setStyleSheet("background-image: url(:/bback/simularbutton.png);\n"
+"border-radius: 10px;")
+        self.simularButton.setText("")
+        self.simularButton.setObjectName("simularButton")
+        self.label_6.raise_()
+        self.labeltools.raise_()
+        self.contenedor.raise_()
+        self.label.raise_()
+        self.backbutton.raise_()
+        self.resistenciaButton.raise_()
+        self.poderButton.raise_()
+        self.label_3.raise_()
+        self.label_4.raise_()
+        self.label_5.raise_()
+        self.label_2.raise_()
+        self.simularButton.raise_()
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -92,4 +184,7 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label.setText(_translate("Form", "CREADOR DE CIRCUITOS"))
-        self.backbutton.setText(_translate("Form", "<<<<"))
+        self.label_2.setText(_translate("Form", "ELEMENTOS"))
+        self.label_3.setText(_translate("Form", "Añadir Resistencia"))
+        self.label_4.setText(_translate("Form", "Añadir Fuente"))
+
