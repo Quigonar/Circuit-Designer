@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1125</width>
-    <height>909</height>
+    <height>908</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(46, 119, 127);</string>
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="loadButton">
@@ -33,10 +33,11 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(144, 255, 248);</string>
+     <string notr="true">background-color: rgb(162, 162, 162);
+border-radius: 30px;</string>
     </property>
     <property name="text">
-     <string>LOAD</string>
+     <string>CARGAR</string>
     </property>
    </widget>
    <widget class="QPushButton" name="createButton">
@@ -55,17 +56,18 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(213, 201, 66);</string>
+     <string notr="true">background-color: rgb(133, 161, 161);
+border-radius: 30px;l</string>
     </property>
     <property name="text">
-     <string>CREATE</string>
+     <string>CREAR</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>20</y>
+      <x>310</x>
+      <y>30</y>
       <width>721</width>
       <height>161</height>
      </rect>
@@ -80,9 +82,31 @@
      <string>CIRCUIT BUILDER</string>
     </property>
    </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>-10</x>
+      <y>-30</y>
+      <width>1151</width>
+      <height>951</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/bback/iprincipal.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>label_2</zorder>
+   <zorder>loadButton</zorder>
+   <zorder>createButton</zorder>
+   <zorder>label</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resources/source.qrc"/>
+ </resources>
  <connections/>
 </ui>

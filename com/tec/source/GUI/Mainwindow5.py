@@ -14,8 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1125, 909)
-        MainWindow.setStyleSheet("background-color: rgb(46, 119, 127);")
+        MainWindow.resize(1125, 908)
+        MainWindow.setStyleSheet("")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.loadButton = QtWidgets.QPushButton(self.centralwidget)
@@ -24,7 +24,8 @@ class Ui_MainWindow(object):
         font.setFamily("STCaiyun")
         font.setPointSize(25)
         self.loadButton.setFont(font)
-        self.loadButton.setStyleSheet("background-color: rgb(144, 255, 248);")
+        self.loadButton.setStyleSheet("background-color: rgb(162, 162, 162);\n"
+"border-radius: 30px;")
         self.loadButton.setObjectName("loadButton")
         self.createButton = QtWidgets.QPushButton(self.centralwidget)
         self.createButton.setGeometry(QtCore.QRect(40, 550, 241, 91))
@@ -32,15 +33,25 @@ class Ui_MainWindow(object):
         font.setFamily("STCaiyun")
         font.setPointSize(25)
         self.createButton.setFont(font)
-        self.createButton.setStyleSheet("background-color: rgb(213, 201, 66);")
+        self.createButton.setStyleSheet("background-color: rgb(133, 161, 161);\n"
+"border-radius: 30px;l")
         self.createButton.setObjectName("createButton")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(40, 20, 721, 161))
+        self.label.setGeometry(QtCore.QRect(310, 30, 721, 161))
         font = QtGui.QFont()
         font.setFamily("OCR A Extended")
         font.setPointSize(50)
         self.label.setFont(font)
         self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(-10, -30, 1151, 951))
+        self.label_2.setStyleSheet("image: url(:/bback/iprincipal.png);")
+        self.label_2.setText("")
+        self.label_2.setObjectName("label_2")
+        self.label_2.raise_()
+        self.loadButton.raise_()
+        self.createButton.raise_()
+        self.label.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -52,16 +63,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.loadButton.setText(_translate("MainWindow", "LOAD"))
-        self.createButton.setText(_translate("MainWindow", "CREATE"))
+        self.loadButton.setText(_translate("MainWindow", "CARGAR"))
+        self.createButton.setText(_translate("MainWindow", "CREAR"))
         self.label.setText(_translate("MainWindow", "CIRCUIT BUILDER"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+import source_rc

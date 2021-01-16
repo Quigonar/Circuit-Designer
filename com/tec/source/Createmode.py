@@ -13,6 +13,10 @@ class Createmode(QtWidgets.QWidget):
         self.backb = self.ui.backbutton
         self.backb.clicked.connect(self.Back)
 
+        simularB = self.ui.simularButton#Boton para iniciar la simulación
+        agregarResistencia = self.ui.resistenciaButton#boton que agrega la reistencia
+        agregarPoder = self.ui.poderButton#boton que agrega la fuente de poder
+
     def Back(self):#funcion para regresar a la primera pantalla
         self.stack.setCurrentIndex(self.stack.currentIndex() - 1)
 

@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="bback">
+    <file>iprincipal.png</file>
+    <file>decoration.png</file>
+    <file>simularbutton.png</file>
+    <file>addpower.png</file>
+    <file>addresistor.png</file>
+    <file>power.png</file>
+    <file>resistor.png</file>
+    <file>back.png</file>
+  </qresource>
+</RCC>
