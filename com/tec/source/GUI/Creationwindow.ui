@@ -16,25 +16,6 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QGraphicsView" name="contenedor">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>190</y>
-     <width>821</width>
-     <height>621</height>
-    </rect>
-   </property>
-   <property name="cursor" stdset="0">
-    <cursorShape>CrossCursor</cursorShape>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255,255,255);
-border-color: rgb(85, 85, 85);
-border-width: 2px;
-</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -409,9 +390,18 @@ border-radius: 10px;</string>
     <string/>
    </property>
   </widget>
+  <widget class="QWidget" name="editor" native="true">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>831</width>
+     <height>681</height>
+    </rect>
+   </property>
+  </widget>
   <zorder>label_6</zorder>
   <zorder>labeltools</zorder>
-  <zorder>contenedor</zorder>
   <zorder>label</zorder>
   <zorder>backbutton</zorder>
   <zorder>resistenciaButton</zorder>
@@ -421,9 +411,10 @@ border-radius: 10px;</string>
   <zorder>label_5</zorder>
   <zorder>label_2</zorder>
   <zorder>simularButton</zorder>
+  <zorder>editor</zorder>
  </widget>
  <resources>
-  <include location="sources.qrc"/>
-</resources>
+  <include location="Resources/source.qrc"/>
+ </resources>
  <connections/>
 </ui>
