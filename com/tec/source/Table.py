@@ -130,7 +130,7 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                 menu.addAction(edit_data)
                 menu.addAction(eliminar)
 
-                action = menu.exec_(self.mapFromGlobal(pos))
+                action = menu.exec_(self.mapToGlobal(pos))
 
                 if action == edit_data:
                     name = item.type_text
@@ -146,6 +146,7 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     editvalor.setText(valor)
 
                     button = QtWidgets.QPushButton("ACEPTAR")
+                    button2 = QtWidgets.QPushButton("Rotar")
                     label = QtWidgets.QLabel(item.title)
 
                     layout = QtWidgets.QVBoxLayout()
@@ -153,6 +154,7 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     layout.addWidget(editname)
                     layout.addWidget(editvalor)
                     layout.addWidget(button)
+                    layout.addWidget(button2)
                     wid.setLayout(layout)
                     wid.setGeometry(int(item.x()), int(item.y()) - 50, 200, 50)
 

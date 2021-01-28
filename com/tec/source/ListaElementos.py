@@ -25,7 +25,7 @@ class ListaElementos(QtWidgets.QListWidget):#lista que contiene los items para c
         __qlistwidgetitem1 = QListWidgetItem(self)
         __qlistwidgetitem1.setForeground(brush5)
         __qlistwidgetitem1.setIcon(icon1)
-        __qlistwidgetitem1.setText("Resistor")
+        __qlistwidgetitem1.setText("Resistencia")
 
         self.setObjectName(u"listaElementos")
         self.setGeometry(QRect(940, 135, 201, 141))

@@ -48,17 +48,19 @@ class EventFilter(QtCore.QObject):# Gestiona los eventos y los lanza
                     self.cable.posinicial = item.posinicial
                     self.scene.addItem(self.cable)
 
-                    self.conector = item.posinicial
-
+                    self.conector = item._conectorInicial
                     self.cable.posfinal = event.scenePos()
                     self.cable.Resetinicialfinal()
                     return True
+
                 elif isinstance(item,Elementos):
                     if self._last_selected:
                         try:
                             self._last_selected.select_connections(False)
                         except RuntimeError:
                             pass
+                    item.select_connections(True)
+                    self._last_selected = item
                 else:
                     try:
                         if self._last_selected:
@@ -66,13 +68,13 @@ class EventFilter(QtCore.QObject):# Gestiona los eventos y los lanza
                     except RuntimeError:
                         print("Error")
                     self._last_selected = None
-            elif event.button() == QtCore.Qt.RightButton:
+
+            elif event.button() == QtCore.Qt.RightButton:#Rota el nodo
                 pass
 
         elif event.type() == QtCore.QEvent.KeyPress:
             if event.key() == QtCore.Qt.Key_Delete:# si se presiona delete se eliminan todos los elementos seleccionados
                 for item in self.scene.selectedItems():
-
                     if isinstance(item,(Conector,Elementos)):
                         item.delete()
                 return True
@@ -90,26 +92,26 @@ class EventFilter(QtCore.QObject):# Gestiona los eventos y los lanza
                 #Conectando al conector
                 if isinstance(item,Conector):
                     if self.conector.can_connect_to(item):
-                        print("COnectando")
+                        print("Conectando")
 
                         #Elimina la conexión anterior del puerto
-                        if item.connection:
-                            item.connection.Delete()
+                        if item.cable:
+                            item.cable.delete()
 
                         #elimina las conexiones anteriores
                         self.conector.clear_connection()
                         item.clear_connection()
 
-                        self.cable._conectorInicial = self.conector
-                        self.cable._conectorFinal = item
+                        self.cable.conectorInicial = self.conector
+                        self.cable.conectorFinal = item
 
                         self.cable.Resetinicialfinal()
                         self.cable = None
                     else:
-                        self.cable.Delete()
+                        self.cable.delete()
                         self.cable = None
                 if self.cable:#elimina la conexión
-                    self.cable.Delete()
+                    self.cable.delete()
                 self.cable = None
                 self.conector = None
                 return True

@@ -1,4 +1,8 @@
 from PySide2 import QtWidgets, QtGui, QtCore
+from PySide2.QtCore import QPoint, Qt
+from PySide2.QtGui import QImage, QPixmap, QPainter
+from PySide2.QtWidgets import QLabel
+
 from com.tec.source.Conectores import Conector
 
 
@@ -7,8 +11,8 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         super(Elementos, self).__init__()
 
         # imagenes para los elementos
-        self.resistenciaIcon = 'GUI/Resources/resistor.png'
-        self.fuenteIcon = 'GUI/Resources/power.png'
+        #self.resistenciaIcon = 'GUI/Resources/resistor.png'
+        #self.fuenteIcon = 'GUI/Resources/power.png'
 
         # Propiedades de los elementos
         self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsMovable)
@@ -20,7 +24,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         self._conectores = []  # A list of ports
 
 
-        self.node_color = QtGui.QColor(30, 30, 3, 30)
+        self.node_color = QtGui.QColor(0, 92, 138)
 
 
         self.title_path = QtGui.QPainterPath()  # The path for the title
@@ -56,7 +60,8 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         datos = [self.x(),self.y(),self._width,self._height]
         return datos
 
-    def paint(self, painter, option=None, widget=None):  # crea el visual del nodo
+    def paint(self,painter, option=None, widget=None):  # crea el visual del nodo
+
 
         if self.isSelected():
             painter.setPen(QtGui.QPen(QtGui.QColor(241, 175, 0), 2))
@@ -65,17 +70,19 @@ class Elementos(QtWidgets.QGraphicsPathItem):
             painter.setPen(self.node_color.lighter())
             painter.setBrush(self.node_color)
 
+
         painter.drawPath(self.path())
+
         painter.setPen(QtCore.Qt.NoPen)
         painter.setBrush(QtCore.Qt.white)
-
         painter.drawPath(self.title_path)
         painter.drawPath(self.type_path)
         painter.drawPath(self.misc_path)
 
-    def add_conector(self, name, is_output=False, flags=0, ptr=None):  # añade un conector al elemento
-        port = Conector(self)
-        port.set_Energy(is_output)
+
+    def add_conector(self, name, energy_o=False, flags=0, ptr=None):  # añade un conector al elemento
+        port = Conector(self,self.scene())
+        port.set_Energy(energy_o)
         port.set_Name(name)
         port.set_node(node=self)
         port.set_port_flags(flags)
@@ -93,6 +100,8 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         total_width = 0
         total_height = 0
         path = QtGui.QPainterPath()  # The main path
+
+
 
         # Las tipografias
         title_font = QtGui.QFont("OCR A Extended", pointSize=12)
@@ -136,11 +145,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         total_height += self.vertical_margin
 
         # Draw the background rectangle
-        path.addRoundedRect(
-            -total_width / 2, -total_height / 2, total_width, total_height, 5, 5
-        )
-
-
+        path.addRoundedRect(-total_width / 2, -total_height / 2, total_width, total_height, 5, 5)
 
         # Dibuja el name
         self.title_path.addText(
@@ -158,14 +163,25 @@ class Elementos(QtWidgets.QGraphicsPathItem):
             "(Nombre: "+ self._type_text + " Valor: "+self.valor_text+")",
         )
 
+
         y = (-total_height / 2) + title_dim["h"] + title_type_dim["h"] + port_dim["h"]
 
-        for conector in self._conectores:#agrega los conectores
-            if conector.is_output():
-                conector.setPos(total_width / 2 - 10, y)
+        count = 1
+        for conector in self._conectores:#agrega los conectores\
+
+            if self.title == "Fuente de Poder":
+                if conector.is_output():
+                    conector.setPos(total_width/2, y)
+                else:
+                    conector.setPos(-total_width/2, y)
             else:
-                conector.setPos(-total_width / 2 + 10, y)
-            y += port_dim["h"]
+                if count==1 :
+                    conector.setPos(-total_width/2,y)
+                else:
+                    conector.setPos(total_width/2,y)
+            count += 1
+
+
 
         self.setPath(path)
 
@@ -176,8 +192,8 @@ class Elementos(QtWidgets.QGraphicsPathItem):
     def select_connections(self, value):#Indica si se esta en estado de conecion
         for port in self._conectores:
             if port.cable:
-                port.cable._do_highlight = value
-                port.cable.update_path()
+                port.cable._resaltar = value
+                port.cable.Refrescar()
 
     def delete(self):
         """Elimina los conectores.
@@ -185,8 +201,8 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         to_delete = []
 
         for port in self._conectores:
-            if port.connection:
-                to_delete.append(port.connection)
+            if port.cable:
+                to_delete.append(port.cable)
 
         for connection in to_delete:
             connection.delete()

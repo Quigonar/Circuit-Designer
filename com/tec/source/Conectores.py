@@ -3,7 +3,7 @@ from PySide2 import QtWidgets, QtGui, QtCore
 
 class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten conectar elementos
 
-    def __init__(self,parent):
+    def __init__(self,parent,scene):
         super(Conector, self).__init__(parent)
 
         self.radius_ = 5
@@ -24,7 +24,7 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
         self.margin = 2
 
         self.m_node = None
-        self.connection = None  # idenfifica si existe alguna conexión
+        self.cable = None  # idenfifica si existe alguna conexión
 
         self.text_path = QtGui.QPainterPath()
 
@@ -75,11 +75,10 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
         painter.drawPath(self.text_path)
 
     def clear_connection(self):
-        if self.connection:
-            self.connection.delete()
+        if self.cable:
+            self.cable.delete()
 
     def can_connect_to(self, port):
-        print(port.getNodo(), self.getNodo())
         if not port:
             return False
         if port.getNodo() == self.getNodo():
@@ -91,13 +90,13 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
         return True
 
     def is_connected(self):
-        if self.connection:
+        if self.cable:
             return True
         return False
 
     def itemChange(self, change, value):
         if change == QtWidgets.QGraphicsItem.ItemScenePositionHasChanged:
-            if self.connection:
-                self.connection.Resetinicialfinal()
+            if self.cable:
+                self.cable.Resetinicialfinal()
 
         return value

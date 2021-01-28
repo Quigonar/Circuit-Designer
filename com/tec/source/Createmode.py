@@ -15,7 +15,7 @@ def Create_power():#Crea el nodo de la funete de poder
     nodo.type_text = "Default"
     nodo.valor_text = 0
 
-    nodo.add_conector(name="+",is_output=True)
+    nodo.add_conector(name="+",energy_o=True)
     nodo.add_conector(name="-")
     nodo.build()
 
@@ -24,7 +24,7 @@ def Create_power():#Crea el nodo de la funete de poder
 def Create_resistor():#Crea el nodo de la resistencia
     nodo = Elementos()
 
-    nodo.title = "Resistor"
+    nodo.title = "Resistencia"
     nodo.type_text = "Default"
     nodo.valor_text = 0
 
@@ -47,6 +47,7 @@ class Createmode(QtWidgets.QWidget):#Crea la ventana y carga los elementos para 
         self.backb = self.ui.backbutton #boton para retroceder a la ventana main
         self.backb.clicked.connect(self.Back)
 
+        self.scene = scene = EditScene()  # Crea la scene que guardará los gráficos
         self.contenedor = self.ui.editor #widget para insertar los gráficos
         self.simularB = self.ui.simularButton  # Boton para iniciar la simulación
 
@@ -60,7 +61,7 @@ class Createmode(QtWidgets.QWidget):#Crea la ventana y carga los elementos para 
 
         self.event_filter = EventFilter(self)
 
-        self.scene = EditScene()  # Crea la scene que guardará los gráficos
+
         self.scene.setSceneRect(0, 0, 999, 999)  # tamaño de la ascena
         self.view = Table(self.contenedor)
         self.view.setScene(self.scene)
@@ -85,7 +86,7 @@ class Createmode(QtWidgets.QWidget):#Crea la ventana y carga los elementos para 
         print("Creando nodo",name)
         if name == "Fuente":
             node = Create_power()
-        elif name == "Resistor":
+        elif name == "Resistencia":
             node = Create_resistor()
 
         self.scene.addItem(node)
