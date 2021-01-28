@@ -220,138 +220,6 @@ border-width: 2px;
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>950</x>
-     <y>150</y>
-     <width>111</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>OCR A Extended</family>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>ELEMENTOS</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="resistenciaButton">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>210</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-image: url(:/bback/addresistor.png);
-border-width: 2px;
-    border-radius: 10px;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="poderButton">
-   <property name="geometry">
-    <rect>
-     <x>870</x>
-     <y>280</y>
-     <width>51</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 255);
-image: url(:/bback/addpower.png);
-border-width: 2px;
-    border-radius: 10px;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>930</x>
-     <y>230</y>
-     <width>191</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>OCR A Extended</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Añadir Resistencia</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>930</x>
-     <y>300</y>
-     <width>221</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>OCR A Extended</family>
-     <pointsize>13</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Añadir Fuente</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="labeltools">
-   <property name="geometry">
-    <rect>
-     <x>850</x>
-     <y>130</y>
-     <width>281</width>
-     <height>361</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(146, 159, 165);
-border-radius: 10px;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-   <property name="indent">
-    <number>-1</number>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>850</x>
-     <y>130</y>
-     <width>281</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(75, 87, 98);
-border-radius: 10px;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
@@ -371,9 +239,9 @@ border-radius: 10px;</string>
   <widget class="QPushButton" name="simularButton">
    <property name="geometry">
     <rect>
-     <x>970</x>
+     <x>1030</x>
      <y>680</y>
-     <width>151</width>
+     <width>121</width>
      <height>91</height>
     </rect>
    </property>
@@ -393,25 +261,42 @@ border-radius: 10px;</string>
   <widget class="QWidget" name="editor" native="true">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>140</y>
-     <width>831</width>
-     <height>681</height>
+     <x>20</x>
+     <y>130</y>
+     <width>1021</width>
+     <height>661</height>
     </rect>
    </property>
   </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>830</x>
+     <y>80</y>
+     <width>201</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>OCR A Extended</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(75, 87, 98);
+border-radius: 10px;</string>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;ELEMENTOS&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
   <zorder>label_6</zorder>
-  <zorder>labeltools</zorder>
   <zorder>label</zorder>
   <zorder>backbutton</zorder>
-  <zorder>resistenciaButton</zorder>
-  <zorder>poderButton</zorder>
-  <zorder>label_3</zorder>
-  <zorder>label_4</zorder>
-  <zorder>label_5</zorder>
-  <zorder>label_2</zorder>
   <zorder>simularButton</zorder>
   <zorder>editor</zorder>
+  <zorder>label_5</zorder>
  </widget>
  <resources>
   <include location="Resources/source.qrc"/>

@@ -4,7 +4,7 @@ from PySide2 import QtWidgets
 
 from com.tec.source.GUI.Mainwindow5 import Ui_MainWindow
 from com.tec.source.Createmode import Createmode
-from com.tec.source.EventFilter import eventFilter
+from com.tec.source.EventFilter import EventFilter
 
 class Mainwindow(QtWidgets.QMainWindow):#Recibe como parametro la clase Mainwindow declarada del archivo .ui
     def __init__(self):
@@ -30,8 +30,7 @@ if __name__=='__main__':#Inicializa la aplicación
     create = Createmode()
     widget.addWidget(create)#aniade la ventana create a el stack
     create.setStack(widget)
-    widget.setFixedWidth(1160)
-    widget.setFixedHeight(830)
+    widget.setGeometry(400,100,1160,830)#posición de la ventana
     #---------------------------
     widget.show()
     #----------
