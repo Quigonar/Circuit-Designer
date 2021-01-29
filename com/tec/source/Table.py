@@ -159,6 +159,7 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     wid.setGeometry(int(item.x()), int(item.y()) - 50, 200, 50)
 
                     button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item))
+                    button2.clicked.connect(lambda: self.Rotate(item))
                     wid.show()
                 if action == eliminar:
                     item.delete()
@@ -167,6 +168,9 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
         item.valor_text = valor
         item.type_text = name
         item.Refresh()
+    def Rotate(self,item):
+        print("Rotando")
+
 
     def anim_finished(self):  # método que reduce el numero de scalas en el widget
         if self._numScheduledScalings > 0:
