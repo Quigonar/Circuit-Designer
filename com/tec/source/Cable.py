@@ -47,7 +47,8 @@ class Cable(QtWidgets.QGraphicsPathItem):
     def conectorInicial(self, nodo):
         self._conectorInicial = nodo
         self._conectorInicial.cable = self
-
+        #agrega los conectores al elemento
+#
 
     @conectorFinal.setter
     def conectorFinal(self,nodo):

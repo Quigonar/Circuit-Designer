@@ -5,7 +5,7 @@ from PySide2.QtWidgets import QLabel
 
 from com.tec.source.Conectores import Conector
 
-
+#
 class Elementos(QtWidgets.QGraphicsPathItem):
     def __init__(self):
         super(Elementos, self).__init__()

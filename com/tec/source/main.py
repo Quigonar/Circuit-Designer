@@ -5,7 +5,7 @@ from PySide2 import QtWidgets
 from com.tec.source.GUI.Mainwindow5 import Ui_MainWindow
 from com.tec.source.Createmode import Createmode
 from com.tec.source.EventFilter import EventFilter
-
+#
 class Mainwindow(QtWidgets.QMainWindow):#Recibe como parametro la clase Mainwindow declarada del archivo .ui
     def __init__(self):
         super(Mainwindow,self).__init__()

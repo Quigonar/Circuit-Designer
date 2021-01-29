@@ -4,6 +4,8 @@ from com.tec.source.Conectores import Conector
 from com.tec.source.Cable import Cable
 from com.tec.source.Elementos import Elementos
 
+
+#Controla los eventos en el editor
 class EventFilter(QtCore.QObject):# Gestiona los eventos y los lanza
 
     def __init__(self,parent):

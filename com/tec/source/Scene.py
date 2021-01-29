@@ -1,7 +1,7 @@
 from PySide2 import QtWidgets
 
 class EditScene(QtWidgets.QGraphicsScene):# Muestra el QGraphic Widget
-
+#
     def dragEnterEvent(self, event):
         event.acceptProposedAction()
 

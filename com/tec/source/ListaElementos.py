@@ -4,7 +4,7 @@ from PySide2.QtGui import QColor, QBrush, QIcon, Qt, QCursor
 from PySide2.QtWidgets import QListWidgetItem
 import source_rc
 
-
+#Lista que contiene los elementos a añadir
 class ListaElementos(QtWidgets.QListWidget):#lista que contiene los items para crear Elementos en la Table
     def __init__(self, parent=None):
         super(ListaElementos, self).__init__(parent)

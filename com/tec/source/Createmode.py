@@ -7,7 +7,7 @@ from com.tec.source.Table import Table
 from com.tec.source.EventFilter import EventFilter
 from com.tec.source.Elementos import Elementos
 from com.tec.source.ListaElementos import ListaElementos
-
+#
 def Create_power():#Crea el nodo de la funete de poder
     nodo = Elementos()
 

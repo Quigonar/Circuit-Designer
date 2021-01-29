@@ -2,7 +2,7 @@ from PySide2 import QtWidgets, QtGui, QtCore
 
 
 class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten conectar elementos
-
+    #
     def __init__(self,parent,scene):
         super(Conector, self).__init__(parent)
 
