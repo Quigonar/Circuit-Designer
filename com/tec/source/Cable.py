@@ -47,6 +47,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
     def conectorInicial(self, nodo):
         self._conectorInicial = nodo
         self._conectorInicial.cable = self
+        self.valorcarga = self.conectorInicial.getCarga()
         #agrega los conectores al elemento
 #
 
@@ -54,6 +55,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
     def conectorFinal(self,nodo):
         self._conectorFinal = nodo
         self._conectorFinal.cable = self
+
 
     @carga.setter
     def carga(self, carga):
@@ -75,6 +77,9 @@ class Cable(QtWidgets.QGraphicsPathItem):
 
 
     def Refrescar(self):# cambia la posición del cable y crea una pequeña curva
+
+
+
         path = QtGui.QPainterPath()
         path.moveTo(self.posinicial)
 

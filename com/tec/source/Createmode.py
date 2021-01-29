@@ -13,7 +13,7 @@ def Create_power():#Crea el nodo de la funete de poder
 
     nodo.title = "Fuente de Poder"
     nodo.type_text = "Default"
-    nodo.valor_text = 0
+    nodo.valor = 0
 
     nodo.add_conector(name="+",energy_o=True)
     nodo.add_conector(name="-")
@@ -26,7 +26,7 @@ def Create_resistor():#Crea el nodo de la resistencia
 
     nodo.title = "Resistencia"
     nodo.type_text = "Default"
-    nodo.valor_text = 0
+    nodo.valor = 0
 
     nodo.add_conector(name="<>")
     nodo.add_conector(name="<>")

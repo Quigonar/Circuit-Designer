@@ -17,6 +17,11 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         # Propiedades de los elementos
         self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsMovable)
         self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsSelectable)
+        self.dir = "horizontal"
+
+        self._title_text = None
+        self._type_text = None
+        self.metric = " "
 
 
         self._width = 61
@@ -24,7 +29,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         self._conectores = []  # A list of ports
 
 
-        self.node_color = QtGui.QColor(0, 92, 138)
+        self.node_color = QtGui.QColor(0, 92, 138,80)
 
 
         self.title_path = QtGui.QPainterPath()  # The path for the title
@@ -32,15 +37,25 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         self.misc_path = QtGui.QPainterPath()  # a bunch of other stuff
 
         self.horizontal_margin = 30  # horizontal margin
-        self.vertical_margin = 15  # vertical margin
+        self.vertical_margin = 15  # vertical margin\
+
+
+
+
 
     @property
     def title(self):
+
         return self._title_text
 
     @title.setter
     def title(self, title):
         self._title_text = title
+        if self.title == "Fuente de Poder":
+            self.metric = "volts"
+        else:
+            self.metric = "ohms"
+
 
     @property
     def type_text(self):
@@ -50,11 +65,11 @@ class Elementos(QtWidgets.QGraphicsPathItem):
     def type_text(self, type_text):
         self._type_text = type_text
     @property
-    def valor_text(self):
-        return self._valor_text
-    @valor_text.setter
-    def valor_text (self,valor):
-        self._valor_text = str(valor)
+    def valor(self):
+        return self._valor
+    @valor.setter
+    def valor (self, valor):
+        self._valor = str(valor)
 
     def getGeometry(self):
         datos = [self.x(),self.y(),self._width,self._height]
@@ -92,6 +107,8 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         self._conectores.append(port)#Añade el conector a la lista de conectores
 
     def build(self):  # crea el elemento en pantalla
+
+
         self.title_path = QtGui.QPainterPath()  # reset
         self.type_path = QtGui.QPainterPath()
         self.misc_path = QtGui.QPainterPath()
@@ -115,7 +132,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         }
 
         title_type_dim = {
-            "w": QtGui.QFontMetrics(title_type_font).width("(Nombre: "+ self._type_text + " Valor: "+self._valor_text + ")"),
+            "w": QtGui.QFontMetrics(title_type_font).width("Nombre: "+ self._type_text + " Valor: "+self._valor+" "+ self.metric ),
             "h": QtGui.QFontMetrics(title_type_font).height(),
         }
 
@@ -160,7 +177,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
             -title_type_dim["w"] / 2,
             (-total_height / 2) + title_dim["h"] + title_type_dim["h"],
             title_type_font,
-            "(Nombre: "+ self._type_text + " Valor: "+self.valor_text+")",
+            "Nombre: " + self._type_text + " Valor: " + self.valor + " " + self.metric,
         )
 
 
@@ -209,4 +226,19 @@ class Elementos(QtWidgets.QGraphicsPathItem):
 
         self.scene().removeItem(self)#elimina el nodo
     def Refresh(self):
+        for conector in self._conectores:
+            conector.Refresh()
         self.build()
+    def Rotate(self):#Rota el elemento
+        if self.dir == "horizontal":
+            self.setRotation(90)
+            self.dir = "vertical"
+        elif self.dir == "vertical":
+            self.setRotation(180)
+            self.dir = "horizontal1"
+        elif self.dir == "horizontal1":
+            self.setRotation(-90)
+            self.dir = "vertical1"
+        else:
+            self.setRotation(0)
+            self.dir="horizontal"

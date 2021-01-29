@@ -1,4 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets, QtOpenGL
+from PySide2.QtCore import QRect
+
+from com.tec.source.Cable import Cable
 from com.tec.source.Elementos import Elementos
 import sys
 
@@ -125,19 +128,20 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
 
                 menu = QtWidgets.QMenu()
 
-                edit_data = QtWidgets.QAction("Datos", self)
+                edit_data = QtWidgets.QAction("Configuración", self)
                 eliminar = QtWidgets.QAction("Eliminar", self)
                 menu.addAction(edit_data)
                 menu.addAction(eliminar)
 
                 action = menu.exec_(self.mapToGlobal(pos))
 
+
                 if action == edit_data:
                     name = item.type_text
-                    valor = item.valor_text
+                    valor = item.valor
 
                     wid = QtWidgets.QDialog(self)
-                    wid.setWindowTitle("Propiedades")
+                    wid.setWindowTitle("Configuración")
                     wid.setAutoFillBackground(True)
                     editname = QtWidgets.QLineEdit()
                     editvalor = QtWidgets.QLineEdit()
@@ -158,19 +162,31 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     wid.setLayout(layout)
                     wid.setGeometry(int(item.x()), int(item.y()) - 50, 200, 50)
 
-                    button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item))
+
+                    button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item,wid))
                     button2.clicked.connect(lambda: self.Rotate(item))
                     wid.show()
                 if action == eliminar:
                     item.delete()
+            if isinstance(item,Cable):
+                menu = QtWidgets.QMenu()
+                valor = item.valorcarga
+                carga = QtWidgets.QAction(str(valor), self)
+                menu.addAction(carga)
+                menu.setStyleSheet(u"background-color: rgb(75, 87, 98);\n"
+"border-radius: 10px;")
+                action = menu.exec_(self.mapToGlobal(pos))
 
-    def ChangeData(self, name, valor, item):  # Cambia los datos de los elementos
-        item.valor_text = valor
+
+
+    def ChangeData(self, name, valor, item,widget):  # Cambia los datos de los elementos
+        item.valor = valor
         item.type_text = name
         item.Refresh()
-    def Rotate(self,item):
-        print("Rotando")
+        widget.close()
 
+    def Rotate(self,item):#Rota el elemento
+        item.Rotate()
 
     def anim_finished(self):  # método que reduce el numero de scalas en el widget
         if self._numScheduledScalings > 0:
