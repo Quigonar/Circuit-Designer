@@ -23,9 +23,9 @@ class Cable(QtWidgets.QGraphicsPathItem):
         self._contienecarga = False
         self._valorcarga = 0
 
-        self.fuente = ""
-        self.mitad = []
-        self.childs = []
+        self._fuente = ""
+        self._mitad = []
+        self._childs = []
 
     def delete(self):  # Elimina el cable
         try:

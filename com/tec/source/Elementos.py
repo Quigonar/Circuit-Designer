@@ -89,14 +89,14 @@ class Elementos(QtWidgets.QGraphicsPathItem):
 
     def add_conector(self, name, energy_o=False, flags=0, ptr=None):  # añade un conector al elemento
         port = Conector(self,self.scene())
-        port.set_Energy(energy_o)
-        port.set_Name(name)
+        port.set_energy(energy_o)
+        port.set_name(name)
         port.set_node(node=self)
         port.set_port_flags(flags)
         port.set_ptr(ptr)
-        #port.setCarga = self.valor
+        #port.setcarga = self.valor
 
-        self._conectores.append(port)#Añade el conector a la lista de conectores
+        self._conectores.append(port)#añade el conector a la lista de conectores
 
     def build(self):  # crea el elemento en pantalla
 
