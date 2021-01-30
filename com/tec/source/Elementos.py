@@ -19,6 +19,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         self._title_text = None
         self._type_text = None
         self.metric = " "
+        self.scene = self.scene
 
         self.resistencia = 100
 
@@ -62,13 +63,13 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         return self._valor
     @property
     def voltaje(self):
-        return self.voltaje
+        return self._voltaje
     @valor.setter
     def valor (self, valor):
         self._valor = valor
     @voltaje.setter
     def voltaje(self,voltaje):
-        self.voltaje = voltaje
+        self._voltaje = voltaje
 
     def getGeometry(self):
         datos = [self.x(),self.y(),self._width,self._height]
@@ -231,16 +232,17 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         Elimina los conectores.
         """
         to_delete = []
-
+        self.voltaje = 0
+        self.valor = 0
         for port in self.conectores:
             if port._cables:
                 for cable in port._cables:
                     to_delete.append(cable)
-
+        self.scene().removeItem(self)  # elimina el nodo
         for connection in to_delete:
             connection.delete()
 
-        self.scene().removeItem(self)#elimina el nodo
+
     def Refresh(self):
         for conector in self.conectores:
             conector.Refresh()

@@ -1,5 +1,6 @@
 from PySide2 import QtCore, QtGui, QtWidgets, QtOpenGL
 from PySide2.QtCore import QRect
+from PySide2.QtGui import QValidator
 
 from com.tec.source.Cable import Cable
 from com.tec.source.Elementos import Elementos
@@ -155,7 +156,7 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     valor = item.valor
                     editvalor = QtWidgets.QLineEdit()
                     editvalor.setText(str(valor))
-
+                    editvalor.setValidator(QtGui.QDoubleValidator())
                     layout.addWidget(editname)
                     if item.title !="Resistencia":
                         layout.addWidget(editvalor)
@@ -165,7 +166,7 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     wid.setGeometry(int(item.x()), int(item.y()) - 50, 200, 50)
 
 
-                    button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item, wid))
+                    button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item, editvalor,wid))
                     button2.clicked.connect(lambda: self.Rotate(item))
                     wid.show()
 
@@ -175,15 +176,19 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
             if isinstance(item,Cable):
                 menu = QtWidgets.QMenu()
                 valor = item.valorcarga
-                carga = QtWidgets.QAction(str(valor), self)
-                corriente = QtWidgets.QAction(str(item.corriente))
+                carga = QtWidgets.QAction(str(valor)+" volts", self)
+                corriente = QtWidgets.QAction(str(item.corriente)+" mA")
                 menu.addAction(carga)
                 menu.addAction(corriente)
                 action = menu.exec_(self.mapToGlobal(pos))
 
-    def ChangeData(self, name, valor, item,widget):  # Cambia los datos de los elementos
+    def ChangeData(self, name, valor, item,editvalor,widget):  # Cambia los datos de los elementos
 
         if item.title != "Resistencia":
+            if int(valor)>10:
+                item.valor = 10
+                valor = 10
+                editvalor.setText(str(item.valor))
             item.valor = int(valor)
         item.type_text = name
         item.Refresh()

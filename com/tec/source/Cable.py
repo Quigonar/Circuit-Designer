@@ -28,6 +28,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
         self.childs = []
 
     def delete(self):  # Elimina el cable
+        self.setCargas(False)
         try:
             for conector in (self._conectorInicial, self._conectorFinal):
                 aux = conector._cables
@@ -88,9 +89,6 @@ class Cable(QtWidgets.QGraphicsPathItem):
         if self.childs:
             for child in self.childs:
                 child.Resetinicialfinal()
-
-
-
         self.Refrescar()
 
     def ResetFromCable(self,dir,item):
@@ -117,7 +115,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
         self.mitad = [(self.posinicial.x()+(dirx/2)),self.posinicial.y()+(diry/2)]
 
         path.lineTo(self.posfinal)
-        self.setCargas()
+        self.setCargas(True)
 
         self.setPath(path)
 
@@ -132,10 +130,22 @@ class Cable(QtWidgets.QGraphicsPathItem):
 
         painter.drawPath(self.path()) # dibuja el cable
 
-    def setCargas(self):#Cambia las cargas de los nodos
-        if self.conectorFinal:
-            if self.conectorFinal.get_node().title == "Resistencia":
-                self.conectorFinal.get_node().valor = self.valorcarga
-        if self.conectorInicial:
-            if self.conectorInicial.get_node().title == "Resistencia":
-                self.valorcarga = self.conectorInicial.get_node().valor - 0.6
+    def setCargas(self,on):#Cambia las cargas de los nodos
+        if on:
+            if self.conectorFinal:
+                if self.conectorFinal.get_node().title == "Resistencia":
+                    self.conectorFinal.get_node().valor = self.valorcarga
+            if self.conectorInicial:
+                if self.conectorInicial.is_output:
+                    if self.conectorInicial.get_node().title == "Resistencia":
+                        self.valorcarga = self.conectorInicial.get_node().valor - 0.6
+                        if self.valorcarga<0:
+                            self.valorcarga = 0
+        else:
+            if self.conectorFinal:
+                if self.conectorFinal.get_node().title == "Resistencia":
+                    self.conectorFinal.get_node().valor = 0
+            if self.conectorInicial:
+                if self.conectorInicial.is_output:
+                    if self.conectorInicial.get_node().title == "Resistencia":
+                        self.valorcarga = 0
