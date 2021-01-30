@@ -40,7 +40,9 @@ class ListaElementos(QtWidgets.QListWidget):#lista que contiene los items para c
 
 
     def mousePressEvent(self,event):#al seleccionar un icono
+
         item = self.itemAt(event.pos())#encuentra el item en la posición
+
 
         name = item.text()#el texto que contenga el item
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1160</width>
-    <height>830</height>
+    <width>1217</width>
+    <height>837</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <rect>
      <x>530</x>
      <y>20</y>
-     <width>421</width>
+     <width>271</width>
      <height>111</height>
     </rect>
    </property>
@@ -223,9 +223,9 @@ border-width: 2px;
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>-50</x>
      <y>0</y>
-     <width>1161</width>
+     <width>1261</width>
      <height>831</height>
     </rect>
    </property>
@@ -294,35 +294,19 @@ border-radius: 10px;</string>
   <widget class="QPushButton" name="backbutton_aux">
    <property name="geometry">
     <rect>
-     <x>1030</x>
+     <x>1150</x>
      <y>20</y>
      <width>51</width>
      <height>41</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <family>PT Bold Broken</family>
-     <pointsize>31</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-     <stylestrategy>PreferDefault</stylestrategy>
-    </font>
-   </property>
-   <property name="cursor">
-    <cursorShape>ArrowCursor</cursorShape>
-   </property>
    <property name="styleSheet">
-    <string notr="true">background-image: url(:/bback/back2.png);
+    <string notr="true">image: url(:/bback/back2.png);
 border-width: 2px;
 	border-radius: 10px;</string>
    </property>
    <property name="text">
     <string/>
-   </property>
-   <property name="autoDefault">
-    <bool>false</bool>
    </property>
   </widget>
   <zorder>label_6</zorder>

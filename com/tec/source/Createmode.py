@@ -9,6 +9,7 @@ from com.tec.source.EventFilter import EventFilter
 from com.tec.source.Elementos import Elementos
 from com.tec.source.ListaElementos import ListaElementos
 from com.tec.source.Decoracion import *
+from com.tec.source.ListaResistencias import Listaresistencias
 ##
 lista_elementos = []
 
@@ -19,6 +20,7 @@ def Create_power():#Crea el nodo de la funete de poder
     nodo.title = "Fuente de Poder"
     nodo.type_text = "Default"
     nodo.valor = 0
+    nodo.setColor(QtGui.QColor(108, 191, 105,80))
 
     nodo.add_conector(name="+",energy_o=True)
     nodo.add_conector(name="-")
@@ -29,10 +31,11 @@ def Create_power():#Crea el nodo de la funete de poder
 
 def Create_resistor():#Crea el nodo de la resistencia
     nodo = Elementos()
-
     nodo.title = "Resistencia"
-    nodo.type_text = "Default"
+    nodo.type_text = "Default"+ str(len(lista_elementos))
     nodo.valor = 0
+    nodo.setColor(QtGui.QColor(0, 92, 138,80))
+
 
     nodo.add_conector(name="<>")
     nodo.add_conector(name="<>",energy_o=True)
@@ -58,6 +61,7 @@ class Createmode(QtWidgets.QWidget):#Crea la ventana y carga los elementos para 
         self.simularB.clicked.connect(self.Simulacion)
         self.button2 = self.ui.backbutton_aux
         self.button2.clicked.connect(self.Restaurar)
+        self.button2.hide()
 
         self.scene = scene = EditScene()  # Crea la scene que guardará los gráficos
         self.contenedor = self.ui.editor #widget para insertar los gráficos
@@ -112,19 +116,26 @@ class Createmode(QtWidgets.QWidget):#Crea la ventana y carga los elementos para 
     def Simulacion(self):# Activa el modo simulación
         self.backb.hide()
         self.button2.show()
-        self.ui.label_5.setGeometry(1030,80,123,51)
+        self.ui.label_5.setGeometry(1035,80,123,51)
         self.ui.label_5.setText("Resistencias")
         self.ui.label_5.setFont(getFontLabel())
         self.listaElementos.hide()
 
+        self.listaresistencias = Listaresistencias(self)
+        self.listaresistencias.show()
 
         for elemento in lista_elementos:
             elemento.setFlag(QtWidgets.QGraphicsPathItem.ItemIsMovable,False)
+            if elemento.title == "Resistencia":
+                self.listaresistencias.Add_resistencia(elemento.type_text)
             for conector in elemento.conectores:
                 conector.setFlag(QtWidgets.QGraphicsPathItem.ItemIsSelectable,False)
-
+        self.listaresistencias.setListaElementos(lista_elementos)
 
     def Restaurar(self): # Restaura las configuraciones de los widgets
+        self.button2.hide()
+        self.listaresistencias.clear()
+        self.listaresistencias.hide()
         for elemento in lista_elementos: # Configura los elementos para que se puedan mover o no
             elemento.setFlag(QtWidgets.QGraphicsPathItem.ItemIsMovable,True)
             for conector in elemento.conectores:

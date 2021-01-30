@@ -18,11 +18,11 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1160, 830)
+        Form.resize(1217, 837)
         Form.setStyleSheet(u"")
         self.label = QLabel(Form)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(530, 20, 421, 111))
+        self.label.setGeometry(QRect(530, 20, 271, 111))
         palette = QPalette()
         brush = QBrush(QColor(165, 132, 48, 255))
         brush.setStyle(Qt.SolidPattern)
@@ -74,7 +74,7 @@ class Ui_Form(object):
         self.backbutton.setAutoDefault(False)
         self.label_6 = QLabel(Form)
         self.label_6.setObjectName(u"label_6")
-        self.label_6.setGeometry(QRect(0, 0, 1161, 831))
+        self.label_6.setGeometry(QRect(-50, 0, 1261, 831))
         self.label_6.setStyleSheet(u"image: url(:/bback/decoration.png);")
         self.simularButton = QPushButton(Form)
         self.simularButton.setObjectName(u"simularButton")
@@ -98,13 +98,10 @@ class Ui_Form(object):
 "border-radius: 10px;")
         self.backbutton_aux = QPushButton(Form)
         self.backbutton_aux.setObjectName(u"backbutton_aux")
-        self.backbutton_aux.setGeometry(QRect(1030, 20, 51, 41))
-        self.backbutton_aux.setFont(font1)
-        self.backbutton_aux.setCursor(QCursor(Qt.ArrowCursor))
-        self.backbutton_aux.setStyleSheet(u"background-image: url(:/bback/back2.png);\n"
+        self.backbutton_aux.setGeometry(QRect(1150, 20, 51, 41))
+        self.backbutton_aux.setStyleSheet(u"image: url(:/bback/back2.png);\n"
 "border-width: 2px;\n"
 "	border-radius: 10px;")
-        self.backbutton_aux.setAutoDefault(False)
         self.label_6.raise_()
         self.label.raise_()
         self.backbutton.raise_()

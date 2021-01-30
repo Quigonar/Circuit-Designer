@@ -30,7 +30,7 @@ if __name__=='__main__':#Inicializa la aplicación
     create = Createmode()
     widget.addWidget(create)#aniade la ventana create a el stack
     create.setStack(widget)
-    widget.setGeometry(400,100,1160,830)#posición de la ventana
+    widget.setGeometry(400,100,1261,830)#posición de la ventana
     #---------------------------
     widget.show()
     #----------

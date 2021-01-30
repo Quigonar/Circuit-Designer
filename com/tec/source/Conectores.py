@@ -77,7 +77,7 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
 
     def paint(self, painter, option=None, widget=None):
         painter.setPen(QtGui.QPen(1))
-        painter.setBrush(QtCore.Qt.green)
+        painter.setBrush(QtGui.QColor(201, 163, 75))
         painter.drawPath(self.path())
 
         painter.setPen(QtCore.Qt.NoPen)

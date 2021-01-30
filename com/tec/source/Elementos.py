@@ -27,8 +27,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         self._height = 51
         self.conectores = [] # lista de los conectores
 
-
-        self.node_color = QtGui.QColor(0, 92, 138,80) # color del nodo
+        self.node_color = QtGui.QColor(0,0,0,0)
 
 
         self.title_path = QtGui.QPainterPath()
@@ -43,12 +42,14 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         return self._title_text
 
     @title.setter
-    def title(self, title):
+    def title(self, title):#Titulo del elemento
         self._title_text = title
         if self.title == "Fuente de Poder":
             self.metric = "volts"
         else:
             self.metric = "ohms"
+    def setColor(self,color):
+        self.node_color = color
 
 
     @property
