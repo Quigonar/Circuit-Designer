@@ -166,15 +166,15 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                     button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item,wid))
                     button2.clicked.connect(lambda: self.Rotate(item))
                     wid.show()
+
                 if action == eliminar:
                     item.delete()
+
             if isinstance(item,Cable):
                 menu = QtWidgets.QMenu()
                 valor = item.valorcarga
                 carga = QtWidgets.QAction(str(valor), self)
                 menu.addAction(carga)
-                menu.setStyleSheet(u"background-color: rgb(75, 87, 98);\n"
-"border-radius: 10px;")
                 action = menu.exec_(self.mapToGlobal(pos))
 
 

@@ -1,10 +1,13 @@
 from PySide2 import QtWidgets, QtGui, QtCore
+from PySide2.QtCore import QPointF
 
 
 class Cable(QtWidgets.QGraphicsPathItem):
+
     def __init__(self, parent):
         super(Cable, self).__init__(parent)
         self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsSelectable)
+        #self.setFlag(QtWidgets.QGraphicsPathItem.ItemSendsScenePositionChanges)
 
         self.setPen(QtGui.QPen(QtGui.QColor(188, 19, 207), 2))
         self.setBrush(QtCore.Qt.NoBrush)
@@ -20,11 +23,26 @@ class Cable(QtWidgets.QGraphicsPathItem):
         self._contienecarga = False
         self._valorcarga = 0
 
+        self.fuente = ""
+        self.mitad = []
+        self.childs = []
+
     def delete(self):  # Elimina el cable
-        for conector in (self._conectorInicial, self._conectorFinal):
-            if conector:
-                conector.cable = None
-            conector = None
+        try:
+            for conector in (self._conectorInicial, self._conectorFinal):
+                aux = conector._cables
+                if conector:
+                    if self.childs:
+                        for child in self.childs:
+                            child.delete()
+                    self.childs = []
+                    try:
+                        conector._cables.remove(self)
+                    except ValueError:
+                        print("Error")
+                conector = None
+        except AttributeError:
+            print("Error")
         self.scene().removeItem(self)
 
     @property
@@ -46,7 +64,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
     @conectorInicial.setter
     def conectorInicial(self, nodo):
         self._conectorInicial = nodo
-        self._conectorInicial.cable = self
+        self._conectorInicial._cables.append(self)
         self.valorcarga = self.conectorInicial.getCarga()
         #agrega los conectores al elemento
 #
@@ -54,7 +72,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
     @conectorFinal.setter
     def conectorFinal(self,nodo):
         self._conectorFinal = nodo
-        self._conectorFinal.cable = self
+        self._conectorFinal._cables.append(self)
 
 
     @carga.setter
@@ -73,12 +91,27 @@ class Cable(QtWidgets.QGraphicsPathItem):
             self.posinicial = self.conectorInicial.scenePos()
         if self.conectorFinal:
             self.posfinal = self.conectorFinal.scenePos()
+        if self.fuente:
+            self.posinicial = QPointF(self.fuente.mitad[0],self.fuente.mitad[1])
+        if self.childs:
+            for child in self.childs:
+                child.Resetinicialfinal()
         self.Refrescar()
 
+    def ResetFromCable(self,dir,item):
+
+        if self.conectorInicial and not self.conectorInicial.is_output():
+            aux = self.conectorFinal
+            self.conectorFinal = self.conectorInicial
+            self.conectorInicial = aux
+        if self.conectorFinal:
+            self.posfinal = self.conectorFinal.scenePos()
+        self.posinicial = dir
+        self.fuente = item
+        self.fuente.childs.append(self)
+        self.Refrescar()
 
     def Refrescar(self):# cambia la posición del cable y crea una pequeña curva
-
-
 
         path = QtGui.QPainterPath()
         path.moveTo(self.posinicial)
@@ -86,9 +119,9 @@ class Cable(QtWidgets.QGraphicsPathItem):
         dirx = self.posfinal.x() - self.posinicial.x()
         diry = self.posfinal.y() - self.posinicial.y()
 
-        ctr1 = QtCore.QPointF(self.posinicial.x() + dirx * 0.9, self.posinicial.y())
-        ctr2 = QtCore.QPointF(self.posinicial.x() + dirx * 0.9, self.posinicial.y() + diry)
-        path.cubicTo(ctr1, ctr2, self.posfinal)
+        self.mitad = [(self.posinicial.x()+(dirx/2)),self.posinicial.y()+(diry/2)]
+
+        path.lineTo(self.posfinal)
 
         self.setPath(path)
 
@@ -97,9 +130,15 @@ class Cable(QtWidgets.QGraphicsPathItem):
 
         if self.isSelected() or self._resaltar:
             painter.setPen(QtGui.QPen(QtGui.QColor(173,119,12,68), 3)) #color al estar seleccionado
-            #showCarga()
+
         else:
             painter.setPen(QtGui.QPen(QtGui.QColor(188, 19, 207,78), 2)) # color sin seleccionar
-            #ShowCarga()off
 
         painter.drawPath(self.path()) # dibuja el cable
+    """""
+    def itemChange(self, change, value):
+        if change == QtWidgets.QGraphicsItem.ItemScenePositionHasChanged:
+            for child in self.childs:
+                child.Resetinicialfinal()
+        return value
+    """

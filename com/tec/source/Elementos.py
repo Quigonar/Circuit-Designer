@@ -1,11 +1,8 @@
 from PySide2 import QtWidgets, QtGui, QtCore
-from PySide2.QtCore import QPoint, Qt
-from PySide2.QtGui import QImage, QPixmap, QPainter
-from PySide2.QtWidgets import QLabel
 
 from com.tec.source.Conectores import Conector
 
-#
+
 class Elementos(QtWidgets.QGraphicsPathItem):
     def __init__(self):
         super(Elementos, self).__init__()
@@ -26,26 +23,21 @@ class Elementos(QtWidgets.QGraphicsPathItem):
 
         self._width = 61
         self._height = 51
-        self._conectores = []  # A list of ports
+        self._conectores = [] # lista de los conectores
 
 
-        self.node_color = QtGui.QColor(0, 92, 138,80)
+        self.node_color = QtGui.QColor(0, 92, 138,80) # color del nodo
 
 
-        self.title_path = QtGui.QPainterPath()  # The path for the title
-        self.type_path = QtGui.QPainterPath()  # The path for the type
-        self.misc_path = QtGui.QPainterPath()  # a bunch of other stuff
+        self.title_path = QtGui.QPainterPath()
+        self.type_path = QtGui.QPainterPath()
+        self.misc_path = QtGui.QPainterPath()
 
-        self.horizontal_margin = 30  # horizontal margin
-        self.vertical_margin = 15  # vertical margin\
-
-
-
-
+        self.horizontal_margin = 30  # margen horizontal
+        self.vertical_margin = 15  # margen vertical
 
     @property
     def title(self):
-
         return self._title_text
 
     @title.setter
@@ -208,18 +200,21 @@ class Elementos(QtWidgets.QGraphicsPathItem):
     # Funciones de mantenimiento
     def select_connections(self, value):#Indica si se esta en estado de conecion
         for port in self._conectores:
-            if port.cable:
-                port.cable._resaltar = value
-                port.cable.Refrescar()
+            if port._cables:
+                for cable in port._cables:
+                    cable._resaltar = value
+                    cable.Refrescar()
 
     def delete(self):
-        """Elimina los conectores.
+        """
+        Elimina los conectores.
         """
         to_delete = []
 
         for port in self._conectores:
-            if port.cable:
-                to_delete.append(port.cable)
+            if port._cables:
+                for cable in port._cables:
+                    to_delete.append(cable)
 
         for connection in to_delete:
             connection.delete()

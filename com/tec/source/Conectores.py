@@ -2,7 +2,7 @@ from PySide2 import QtWidgets, QtGui, QtCore
 
 
 class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten conectar elementos
-    #
+
     def __init__(self,parent,scene):
         super(Conector, self).__init__(parent)
 
@@ -25,7 +25,7 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
         self.carga = 0
 
         self.m_node = None
-        self.cable = None  # idenfifica si existe alguna conexión
+        self._cables = []  # idenfifica si existe alguna conexión
 
         self.text_path = QtGui.QPainterPath()
 
@@ -82,33 +82,35 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
         painter.drawPath(self.text_path)
 
     def clear_connection(self):
-        if self.cable:
-            self.cable.delete()
+        for cable in self._cables:
+            if cable:
+                cable.delete()
 
     def can_connect_to(self, port):
         if not port:
             return False
         if port.getNodo() == self.getNodo():
             return False
-
+        """""
         if self.energy_o == port.energy_o:
             return False
+        """
 
         return True
 
     def is_connected(self):
-        if self.cable:
+        if self._cables:
             return True
         return False
 
     def itemChange(self, change, value):
         if change == QtWidgets.QGraphicsItem.ItemScenePositionHasChanged:
-            if self.cable:
-                self.cable.Resetinicialfinal()
-
+            for cable in self._cables:
+                cable.Resetinicialfinal()
         return value
 
-    def Refresh(self):
+    def Refresh(self): # cambia los valores de la carga al ser editados
         self.carga = self.m_node.valor
         if self.is_connected():
-            self.cable.valorcarga = self.carga
+            for cable in self._cables:
+                cable.valorcarga = self.carga
