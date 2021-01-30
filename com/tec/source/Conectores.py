@@ -29,8 +29,8 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
 
         self.text_path = QtGui.QPainterPath()
 
-    def set_Energy(self, da_energia):
-        self.energy_o = da_energia
+    def set_Energy(self, salida):
+        self.energy_o = salida
 
 
     def set_Name(self, name):
@@ -52,7 +52,10 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
     def set_node(self, node):
         self.m_node = node
         if self.energy_o == True:
-            self.carga = self.m_node.valor
+            if self.m_node.title != "Resistencia":
+                self.carga = self.m_node.valor
+    def get_node(self):
+        return self.m_node
 
     def set_port_flags(self, flags):
         self.m_port_flags = flags
@@ -91,10 +94,10 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
             return False
         if port.getNodo() == self.getNodo():
             return False
-        """""
+
         if self.energy_o == port.energy_o:
             return False
-        """
+
 
         return True
 
@@ -110,7 +113,11 @@ class Conector(QtWidgets.QGraphicsPathItem):#conectores de los nodos, permiten c
         return value
 
     def Refresh(self): # cambia los valores de la carga al ser editados
-        self.carga = self.m_node.valor
-        if self.is_connected():
-            for cable in self._cables:
-                cable.valorcarga = self.carga
+        if self.m_node.title != "Reisistencia":
+            self.carga = self.m_node.valor
+        else:
+            self.carga = self.m_node.valor - 1.60
+        if self.is_connected():# Si el conector esta conectado envia la energía a los cables
+            if self.energy_o:
+                for cable in self._cables:
+                    cable.valorcarga = self.carga

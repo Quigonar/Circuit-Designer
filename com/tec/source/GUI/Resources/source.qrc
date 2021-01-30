@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="bback">
+    <file>back2.png</file>
     <file>iprincipal.png</file>
     <file>decoration.png</file>
     <file>simularbutton.png</file>

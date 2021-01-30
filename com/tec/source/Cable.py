@@ -20,12 +20,12 @@ class Cable(QtWidgets.QGraphicsPathItem):
         self.posfinal = QtCore.QPointF()
 
         self._resaltar = False
-        self._contienecarga = False
         self._valorcarga = 0
+        self.corriente = 4.67
 
-        self._fuente = ""
-        self._mitad = []
-        self._childs = []
+        self.fuente = None
+        self.mitad = []
+        self.childs = []
 
     def delete(self):  # Elimina el cable
         try:
@@ -52,9 +52,6 @@ class Cable(QtWidgets.QGraphicsPathItem):
     def conectorFinal(self):
         return self._conectorFinal
     @property
-    def carga(self):
-        return self._contienecarga
-    @property
     def valorcarga(self):
         return self._valorcarga
     @property
@@ -73,11 +70,6 @@ class Cable(QtWidgets.QGraphicsPathItem):
     def conectorFinal(self,nodo):
         self._conectorFinal = nodo
         self._conectorFinal._cables.append(self)
-
-
-    @carga.setter
-    def carga(self, carga):
-        self._contienecarga = carga
     @valorcarga.setter
     def valorcarga(self, valor):
         self._valorcarga = valor
@@ -96,6 +88,9 @@ class Cable(QtWidgets.QGraphicsPathItem):
         if self.childs:
             for child in self.childs:
                 child.Resetinicialfinal()
+
+
+
         self.Refrescar()
 
     def ResetFromCable(self,dir,item):
@@ -122,6 +117,7 @@ class Cable(QtWidgets.QGraphicsPathItem):
         self.mitad = [(self.posinicial.x()+(dirx/2)),self.posinicial.y()+(diry/2)]
 
         path.lineTo(self.posfinal)
+        self.setCargas()
 
         self.setPath(path)
 
@@ -135,10 +131,11 @@ class Cable(QtWidgets.QGraphicsPathItem):
             painter.setPen(QtGui.QPen(QtGui.QColor(188, 19, 207,78), 2)) # color sin seleccionar
 
         painter.drawPath(self.path()) # dibuja el cable
-    """""
-    def itemChange(self, change, value):
-        if change == QtWidgets.QGraphicsItem.ItemScenePositionHasChanged:
-            for child in self.childs:
-                child.Resetinicialfinal()
-        return value
-    """
+
+    def setCargas(self):#Cambia las cargas de los nodos
+        if self.conectorFinal:
+            if self.conectorFinal.get_node().title == "Resistencia":
+                self.conectorFinal.get_node().valor = self.valorcarga
+        if self.conectorInicial:
+            if self.conectorInicial.get_node().title == "Resistencia":
+                self.valorcarga = self.conectorInicial.get_node().valor - 0.6

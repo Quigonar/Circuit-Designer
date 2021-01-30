@@ -103,6 +103,8 @@ class EventFilter(QtCore.QObject):# Gestiona los eventos y los lanza
                         self.cable.conectorInicial = self.conector
                         self.cable.conectorFinal = item
 
+
+
                         self.cable.Resetinicialfinal()
                         self.cable = None
                     else:

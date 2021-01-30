@@ -12,18 +12,19 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         #self.fuenteIcon = 'GUI/Resources/power.png'
 
         # Propiedades de los elementos
-        self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsMovable)
-        self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsSelectable)
+        self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsMovable,True)
+        self.setFlag(QtWidgets.QGraphicsPathItem.ItemIsSelectable,True)
         self.dir = "horizontal"
 
         self._title_text = None
         self._type_text = None
         self.metric = " "
 
+        self.resistencia = 100
 
         self._width = 61
         self._height = 51
-        self._conectores = [] # lista de los conectores
+        self.conectores = [] # lista de los conectores
 
 
         self.node_color = QtGui.QColor(0, 92, 138,80) # color del nodo
@@ -59,9 +60,15 @@ class Elementos(QtWidgets.QGraphicsPathItem):
     @property
     def valor(self):
         return self._valor
+    @property
+    def voltaje(self):
+        return self.voltaje
     @valor.setter
     def valor (self, valor):
-        self._valor = str(valor)
+        self._valor = valor
+    @voltaje.setter
+    def voltaje(self,voltaje):
+        self.voltaje = voltaje
 
     def getGeometry(self):
         datos = [self.x(),self.y(),self._width,self._height]
@@ -89,14 +96,14 @@ class Elementos(QtWidgets.QGraphicsPathItem):
 
     def add_conector(self, name, energy_o=False, flags=0, ptr=None):  # añade un conector al elemento
         port = Conector(self,self.scene())
-        port.set_energy(energy_o)
-        port.set_name(name)
+        port.set_Energy(energy_o)
+        port.set_Name(name)
         port.set_node(node=self)
         port.set_port_flags(flags)
         port.set_ptr(ptr)
         #port.setcarga = self.valor
 
-        self._conectores.append(port)#añade el conector a la lista de conectores
+        self.conectores.append(port)#añade el conector a la lista de conectores
 
     def build(self):  # crea el elemento en pantalla
 
@@ -123,11 +130,17 @@ class Elementos(QtWidgets.QGraphicsPathItem):
             "h": QtGui.QFontMetrics(title_font).height(),
         }
 
-        title_type_dim = {
-            "w": QtGui.QFontMetrics(title_type_font).width("Nombre: "+ self._type_text + " Valor: "+self._valor+" "+ self.metric ),
-            "h": QtGui.QFontMetrics(title_type_font).height(),
-        }
-
+        if self.title!="Resistencia":
+            title_type_dim = {
+                "w": QtGui.QFontMetrics(title_type_font).width("Nombre: "+ self._type_text + " Valor: "+str(self._valor)+" "+ self.metric ),
+                "h": QtGui.QFontMetrics(title_type_font).height(),
+            }
+        else:
+            title_type_dim = {
+                "w": QtGui.QFontMetrics(title_type_font).width(
+                    "Nombre: " + self._type_text + " Valor: " + str(self.resistencia) + " " + self.metric),
+                "h": QtGui.QFontMetrics(title_type_font).height(),
+            }
         # ancho maximo
         for dim in [title_dim["w"], title_type_dim["w"]]:
             if dim > total_width:
@@ -138,7 +151,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
             total_height += dim
 
         # Add the heigth for each of the ports
-        for conector in self._conectores:
+        for conector in self.conectores:
             port_dim = {
                 "w": QtGui.QFontMetrics(port_font).width(conector.name()),
                 "h": QtGui.QFontMetrics(port_font).height(),
@@ -164,19 +177,27 @@ class Elementos(QtWidgets.QGraphicsPathItem):
             self._title_text,
         )
 
-        # Dibuja el tipo
-        self.type_path.addText(
-            -title_type_dim["w"] / 2,
-            (-total_height / 2) + title_dim["h"] + title_type_dim["h"],
-            title_type_font,
-            "Nombre: " + self._type_text + " Valor: " + self.valor + " " + self.metric,
-        )
+        if self.title == "Resistencia":
+            # Dibuja el tipo
+            self.type_path.addText(
+                -title_type_dim["w"] / 2,
+                (-total_height / 2) + title_dim["h"] + title_type_dim["h"],
+                title_type_font,
+                "Nombre: " + self._type_text + " Valor: " + str(self.resistencia) + " " + self.metric,
+            )
+        else:
+            self.type_path.addText(
+                -title_type_dim["w"] / 2,
+                (-total_height / 2) + title_dim["h"] + title_type_dim["h"],
+                title_type_font,
+                "Nombre: " + self._type_text + " Valor: " + str(self.valor) + " " + self.metric,
+            )
 
 
         y = (-total_height / 2) + title_dim["h"] + title_type_dim["h"] + port_dim["h"]
 
         count = 1
-        for conector in self._conectores:#agrega los conectores\
+        for conector in self.conectores:#agrega los conectores\
 
             if self.title == "Fuente de Poder":
                 if conector.is_output():
@@ -199,7 +220,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
 
     # Funciones de mantenimiento
     def select_connections(self, value):#Indica si se esta en estado de conecion
-        for port in self._conectores:
+        for port in self.conectores:
             if port._cables:
                 for cable in port._cables:
                     cable._resaltar = value
@@ -211,7 +232,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
         """
         to_delete = []
 
-        for port in self._conectores:
+        for port in self.conectores:
             if port._cables:
                 for cable in port._cables:
                     to_delete.append(cable)
@@ -221,7 +242,7 @@ class Elementos(QtWidgets.QGraphicsPathItem):
 
         self.scene().removeItem(self)#elimina el nodo
     def Refresh(self):
-        for conector in self._conectores:
+        for conector in self.conectores:
             conector.Refresh()
         self.build()
     def Rotate(self):#Rota el elemento

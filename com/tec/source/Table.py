@@ -125,7 +125,6 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
 
         if item:
             if isinstance(item, Elementos):
-
                 menu = QtWidgets.QMenu()
 
                 edit_data = QtWidgets.QAction("Configuración", self)
@@ -137,17 +136,10 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
 
 
                 if action == edit_data:
-                    name = item.type_text
-                    valor = item.valor
 
                     wid = QtWidgets.QDialog(self)
                     wid.setWindowTitle("Configuración")
                     wid.setAutoFillBackground(True)
-                    editname = QtWidgets.QLineEdit()
-                    editvalor = QtWidgets.QLineEdit()
-
-                    editname.setText(name)
-                    editvalor.setText(valor)
 
                     button = QtWidgets.QPushButton("ACEPTAR")
                     button2 = QtWidgets.QPushButton("Rotar")
@@ -155,15 +147,25 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
 
                     layout = QtWidgets.QVBoxLayout()
                     layout.addWidget(label)
+
+                    name = item.type_text
+                    editname = QtWidgets.QLineEdit()
+                    editname.setText(name)
+
+                    valor = item.valor
+                    editvalor = QtWidgets.QLineEdit()
+                    editvalor.setText(str(valor))
+
                     layout.addWidget(editname)
-                    layout.addWidget(editvalor)
+                    if item.title !="Resistencia":
+                        layout.addWidget(editvalor)
                     layout.addWidget(button)
                     layout.addWidget(button2)
                     wid.setLayout(layout)
                     wid.setGeometry(int(item.x()), int(item.y()) - 50, 200, 50)
 
 
-                    button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item,wid))
+                    button.clicked.connect(lambda: self.ChangeData(editname.text(), editvalor.text(), item, wid))
                     button2.clicked.connect(lambda: self.Rotate(item))
                     wid.show()
 
@@ -174,13 +176,15 @@ class Table(QtWidgets.QGraphicsView):  # widget que contiene los elementos gráf
                 menu = QtWidgets.QMenu()
                 valor = item.valorcarga
                 carga = QtWidgets.QAction(str(valor), self)
+                corriente = QtWidgets.QAction(str(item.corriente))
                 menu.addAction(carga)
+                menu.addAction(corriente)
                 action = menu.exec_(self.mapToGlobal(pos))
 
-
-
     def ChangeData(self, name, valor, item,widget):  # Cambia los datos de los elementos
-        item.valor = valor
+
+        if item.title != "Resistencia":
+            item.valor = int(valor)
         item.type_text = name
         item.Refresh()
         widget.close()

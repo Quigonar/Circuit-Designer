@@ -96,12 +96,22 @@ class Ui_Form(object):
         self.label_5.setFont(font3)
         self.label_5.setStyleSheet(u"background-color: rgb(75, 87, 98);\n"
 "border-radius: 10px;")
+        self.backbutton_aux = QPushButton(Form)
+        self.backbutton_aux.setObjectName(u"backbutton_aux")
+        self.backbutton_aux.setGeometry(QRect(1030, 20, 51, 41))
+        self.backbutton_aux.setFont(font1)
+        self.backbutton_aux.setCursor(QCursor(Qt.ArrowCursor))
+        self.backbutton_aux.setStyleSheet(u"background-image: url(:/bback/back2.png);\n"
+"border-width: 2px;\n"
+"	border-radius: 10px;")
+        self.backbutton_aux.setAutoDefault(False)
         self.label_6.raise_()
         self.label.raise_()
         self.backbutton.raise_()
         self.simularButton.raise_()
         self.editor.raise_()
         self.label_5.raise_()
+        self.backbutton_aux.raise_()
 
         self.retranslateUi(Form)
 
@@ -115,5 +125,6 @@ class Ui_Form(object):
         self.label_6.setText("")
         self.simularButton.setText("")
         self.label_5.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\">ELEMENTOS</p></body></html>", None))
+        self.backbutton_aux.setText("")
     # retranslateUi
 
